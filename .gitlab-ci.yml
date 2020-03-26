@@ -1,0 +1,15 @@
+image: "alpine"
+deploy:
+  script:
+    - apk update
+    - apk add openssh
+    - mkdir -p ~/.ssh
+    - touch ~/.ssh/id_rsa
+    - touch ~/.ssh/id_rsa.pub
+    - touch ~/.ssh/known_hosts
+    - echo "$PRIVATE_KEY" > ~/.ssh/id_rsa
+    - echo "$PUBLIC_KEY" > ~/.ssh/id_rsa.pub
+    - echo "$KNOWN_HOST" > ~/.ssh/known_hosts
+    - chmod 400 ~/.ssh/id_rsa
+    - chmod 644 ~/.ssh/known_hosts
+    - ssh root@206.189.158.66 '/bin/sh -c "cd /root/dev/medup-api && git pull && cd /root/dev && docker-compose up -d --build"'
