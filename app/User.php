@@ -57,9 +57,7 @@ class User extends Eloquent implements AuthenticatableContract, AuthorizableCont
         'keterangan' 
     ];
 
-    public function book(){
-      return $this->hasMany('App\Book');
-    }
+    
     /**
      * The attributes excluded from the model's JSON form.
      *
@@ -69,9 +67,7 @@ class User extends Eloquent implements AuthenticatableContract, AuthorizableCont
         'password',
     ];
 
-    public function image(){
-        return $this->hasMany('App\ImageModel','user_id');
-    }
+   
 
 
 

@@ -68,4 +68,30 @@ class AuthController extends BaseController
             'error' => 'Email or password is wrong.',
         ], 400);
     }
+
+    public function daftar(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email|unique:users'
+        ]);
+        $password_input = $request->input('password');
+        $user = new User();
+         $salt = uniqid(mt_rand(), true);
+            $salted_password = $password_input.$salt;
+            $password_secure = hash('sha256', $salted_password);
+            $hash = md5( rand(0,1000) );
+        $user->salt = $salt;
+        $user->hash = $hash;
+        $user->password = $password_secure;
+
+        //Info
+        $user->email = $request->input('email');
+        $user->name = $request->input('name');
+        $user->role = 'admin';
+        $user->save();
+
+        return response()->json([
+            'data' => $user,
+        ], 200);
+    }
 }

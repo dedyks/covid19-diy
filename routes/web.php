@@ -15,6 +15,10 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 $router->get('version', 'v2\UsersController@version');
+$router->post('submit', 'ScreeningController@add');
+
+$router->post('daftar', 'AuthController@daftar');
+
 
 $router->post(
     'auth/login',
