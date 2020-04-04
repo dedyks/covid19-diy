@@ -15,15 +15,15 @@ class Screening extends Eloquent
      * @var array
      */
     public static $rules = [
-        'nama' => 'required',
-        'no_hp' => 'required',
            ];
     protected $fillable = [
         'faskes_name',
+        'id_faskes',
         'questionnaire',
         'nama',
+        'data',
         'alamat',
         'no_hp',
-        'kesimpulan'
+        'kesimpulan',
     ];
 }
