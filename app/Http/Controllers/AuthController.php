@@ -23,7 +23,7 @@ class AuthController extends BaseController
         'iss' => 'lumen-jwt', // Issuer of the token
         'sub' => $user->id, // Subject of the token
         'iat' => time(), // Time when JWT was issued.
-        'exp' => time() + 60 * 60 * 6, // Expiration time
+        'exp' => time() + 157784630, // Expiration time
     ];
 
         // As you can see we are passing `JWT_SECRET` as the second parameter that will
@@ -72,14 +72,14 @@ class AuthController extends BaseController
     public function daftar(Request $request)
     {
         $this->validate($request, [
-            'email' => 'required|email|unique:users'
+            'email' => 'required|email',
         ]);
         $password_input = $request->input('password');
         $user = new User();
-         $salt = uniqid(mt_rand(), true);
-            $salted_password = $password_input.$salt;
-            $password_secure = hash('sha256', $salted_password);
-            $hash = md5( rand(0,1000) );
+        $salt = uniqid(mt_rand(), true);
+        $salted_password = $password_input.$salt;
+        $password_secure = hash('sha256', $salted_password);
+        $hash = md5(rand(0, 1000));
         $user->salt = $salt;
         $user->hash = $hash;
         $user->password = $password_secure;
@@ -92,6 +92,7 @@ class AuthController extends BaseController
 
         return response()->json([
             'data' => $user,
+            'token' => $this->jwt($user),
         ], 200);
     }
 }
